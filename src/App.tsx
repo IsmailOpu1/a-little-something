@@ -64,9 +64,17 @@ function App() {
   }, []);
 
   const chooseBranch = (nextBranch: Exclude<Branch, null>) => {
-    setBranch(nextBranch);
-    setScene(nextBranch === "coffee" ? "coffee-final" : "appreciation-final");
-  };
+  setBranch(nextBranch);
+  setScene(nextBranch === "coffee" ? "coffee-final" : "appreciation-final");
+
+  fetch("/api/notify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ choice: nextBranch }),
+  }).catch(() => {
+    // Intentionally ignored
+  });
+};
 
   const renderScene = () => {
     switch (scene) {

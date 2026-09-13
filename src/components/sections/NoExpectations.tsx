@@ -48,8 +48,31 @@ export function NoExpectations({ branch, onChoose, instant = false }: NoExpectat
             are always fully filled with their own gradient (not just on
             selection) so they read as prominent, real actions from the
             moment they appear. Stacks vertically until sm:, then sits side
-            by side — no horizontal overflow at narrow widths. */}
-        <div className="flex w-full max-w-sm flex-col justify-center gap-4 sm:max-w-lg sm:flex-row">
+            by side — no horizontal overflow at narrow widths. Coffee is
+            first in the DOM (so it lands on top on mobile), but sm:flex-
+            row-reverse visually flips the desktop row so it lands on the
+            right there instead of the left — DOM order (and thus tab
+            order / a11y) stays coffee-then-appreciation either way. */}
+        <div className="flex w-full max-w-sm flex-col justify-center gap-4 sm:max-w-lg sm:flex-row-reverse">
+          <motion.button
+            type="button"
+            onClick={() => onChoose("coffee")}
+            tabIndex={isComplete ? 0 : -1}
+            aria-hidden={!isComplete}
+            className={`story-btn-coffee flex-1 ${storyActionButtonBaseClassName}`}
+            style={{
+              ...coffeeButtonStyle,
+              pointerEvents: isComplete ? "auto" : "none",
+            }}
+            initial={ctaHidden}
+            animate={isComplete ? ctaVisible : ctaHidden}
+            transition={shouldReduceMotion ? ctaTransitionReduced : ctaTransition}
+            whileHover={shouldReduceMotion ? actionButtonHoverReduced : actionButtonHover}
+            whileTap={shouldReduceMotion ? actionButtonTapReduced : actionButtonTap}
+          >
+            {choices.coffeeLabel}
+          </motion.button>
+
           <motion.button
             type="button"
             onClick={() => onChoose("appreciation")}
@@ -70,25 +93,6 @@ export function NoExpectations({ branch, onChoose, instant = false }: NoExpectat
             whileTap={shouldReduceMotion ? actionButtonTapReduced : actionButtonTap}
           >
             {choices.appreciationLabel}
-          </motion.button>
-
-          <motion.button
-            type="button"
-            onClick={() => onChoose("coffee")}
-            tabIndex={isComplete ? 0 : -1}
-            aria-hidden={!isComplete}
-            className={`story-btn-coffee flex-1 ${storyActionButtonBaseClassName}`}
-            style={{
-              ...coffeeButtonStyle,
-              pointerEvents: isComplete ? "auto" : "none",
-            }}
-            initial={ctaHidden}
-            animate={isComplete ? ctaVisible : ctaHidden}
-            transition={shouldReduceMotion ? ctaTransitionReduced : ctaTransition}
-            whileHover={shouldReduceMotion ? actionButtonHoverReduced : actionButtonHover}
-            whileTap={shouldReduceMotion ? actionButtonTapReduced : actionButtonTap}
-          >
-            {choices.coffeeLabel}
           </motion.button>
         </div>
       </div>
