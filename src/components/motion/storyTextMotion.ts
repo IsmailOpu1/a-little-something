@@ -39,7 +39,7 @@ export const textBeatStaggerReduced = 0;
 // the capped text-beat stagger above, the point here is to let typing
 // take however long the sentence needs, giving the reader a natural pace
 // rather than a fixed 2-3s ceiling.
-export const typewriterCharDelay = 65; // ms per character while typing — slow enough to read as it types
+export const typewriterCharDelay = 50; // ms per character while typing — slow enough to read as it types
 export const typewriterCharDelayReduced = 30; // reduced motion: still noticeably slower, but a bit quicker than normal
 export const typewriterLineGap = 350; // ms pause after one line finishes before the next starts typing
 
