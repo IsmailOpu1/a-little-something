@@ -4,6 +4,7 @@ import { message } from "../../content/message.config";
 import { StoryContinue } from "../StoryContinue";
 import { StoryTextBeat } from "../motion/StoryTextBeat";
 import { StoryTypewriterLine } from "../motion/StoryTypewriterLine";
+import SpeechBubbleHint from "../motion/SpeechBubbleHint";
 import {
   ctaHidden,
   ctaTransition,
@@ -57,7 +58,7 @@ export function Opening({ onContinue, onOpen }: { onContinue: () => void; onOpen
             key="closed"
             type="button"
             onClick={handleOpen}
-            className="story-open-card flex flex-col items-center gap-10 cursor-pointer bg-transparent border-none"
+            className="story-open-card relative flex flex-col items-center gap-10 cursor-pointer bg-transparent border-none"
             initial={storySequenceInitial}
             animate={storySequenceAnimate}
             exit={storySequenceExit}
@@ -99,6 +100,13 @@ export function Opening({ onContinue, onOpen }: { onContinue: () => void; onOpen
             >
               {message.opening.ctaText}
             </motion.span>
+
+            {showOpenCta && (
+              <SpeechBubbleHint
+                text="🎧 put your headphones in"
+                className="absolute -top-16 left-1/2 -translate-x-1/2"
+              />
+            )}
           </motion.button>
         ) : (
           <motion.div
